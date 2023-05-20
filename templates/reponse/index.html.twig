@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="text-center">
+    <h1 class="my-3">Page des Réponses</h1>
+        <div class="row">
+        <div class="col-6">
+        <h2>Liste de Réponses</h2>
+            <ul class="list-group">
+            {% for reponse in reponses %}
+                    <li class="list-group-item"><a href="{{ path('update_reponse', {id:reponse.id})}}" class="nav-link">{{ reponse.titre }} </a></li>
+                    {% else %}
+                    <p class="text-danger">Il n'y a pas de reponses pour le moment</p>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-6">
+             <h2>Ajouter une réeponse</h2>
+             {{ form(form) }}
+        </div>
+        </div>
+    </div>
+{% endblock %}

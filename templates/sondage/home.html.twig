@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body %}
+
+     <h1 class="my-3">Liste des Sondages en cours</h1>
+     <p><a href="{{ path('save_sondage') }}"><button class="btn btn-info">Ajouter un sondage</button></a></p>
+     <ul class="list-group">
+         {% for sondage in sondages %}
+             <li class="list-group-item">
+                <a href="{{path('single_sondage',{id: sondage.id}) }}">{{sondage.nom}}</a>
+                    <ul class="list-group-item">
+                        {% for question in sondage.questions %}
+                             <li class="list-group-item">
+                                 {{ question.titre }}
+                                    <ul class="list-group">
+                                        {% for reponse in question.reponses %}
+                                        {# On attribute une valeur à la variable cextColor 
+                                        en fuction de la valeur de la proprité hightSore de la réponse #}
+                                               {% if reponse.highScore %}
+                                                {% set colorFirst = 'text-success' %}
+                                            {% else %}
+                                                    {% set colorFirst = '' %}
+
+                                            {% endif %}
+                                              <li class="list-group-item {{colorFirst}}">
+                                                     {{ reponse.titre }}  |
+                                                     score: {{ reponse.score }}
+                                              </li>
+                                            {% else %}
+                                              <li class="list-group-item">Il n'y a pas de réponse pour le moment</li>
+                                        {% endfor %}
+                                    </ul>
+                             </li>
+                            {% else %}
+                                <li class="list-group-item">Il n'y a pas de questions pour le moment</li>
+                        {% endfor %}
+                    </ul>
+             </li>
+
+             {% else %}
+             <li class="list-group-item">Il n'y a pas de sondages pour le moment</li>
+         {% endfor %}
+     </ul>
+
+{% endblock %}

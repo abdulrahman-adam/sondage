@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="text-center">
+    <h1 class="my-3">Page des questions</h1>
+        <div class="row">
+        <div class="col-6">
+        <h2>Liste de questions</h2>
+            <ul class="list-group">
+            {% for question in questions %}
+                    <li class="list-group-item"><a href="{{ path('update_question', {id:question.id})}}" class="nav-link">{{ question.titre }} </a></li>
+                    {% else %}
+                    <p class="text-danger">Il n'y a pas de questions pour le moment</p>
+            {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-6">
+             <h2>Ajouter une question</h2>
+             {{ form(form) }}
+        </div>
+        </div>
+    </div>
+{% endblock %}

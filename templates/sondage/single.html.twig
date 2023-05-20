@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+{% block body %}
+     <h1 class="my-3">{{ sondage.nom }}</h1>
+     {% for question in sondage.questions %}
+        <h2>
+            {{ question.titre }}
+        </h2>
+     {% for reponse in question.reponses %}
+        <p>
+            {{ reponse.titre }} | 
+            score: {{ reponse.score }}
+            <a href="{{path('increment_score', {id:reponse.id})}}"><button class="btn btn-info">Voter pour cette reponse</button></a>
+        </p> 
+        {% else %}
+        <p class="text-danger">Cette question n'a pas encore de réponses</p>
+     {% endfor %}
+     {% else %}
+     <p class="text-danger">Ce sondage n'a pas encore de question</p>
+     {% endfor %}
+{% endblock %}
